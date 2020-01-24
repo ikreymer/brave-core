@@ -76,10 +76,6 @@ class LedgerClientMojoProxy : public mojom::BatLedgerClient,
     ledger::UrlMethod method,
     LoadURLCallback callback) override;
 
-  void SavePendingContribution(
-      ledger::PendingContributionList list,
-      SavePendingContributionCallback callback) override;
-
   void PublisherListNormalized(ledger::PublisherInfoList list) override;
 
   void SaveState(const std::string& name,
@@ -133,19 +129,6 @@ class LedgerClientMojoProxy : public mojom::BatLedgerClient,
   void SetConfirmationsIsReady(const bool is_ready) override;
 
   void ConfirmationsTransactionHistoryDidChange() override;
-
-  void GetPendingContributions(
-      GetPendingContributionsCallback callback) override;
-
-  void RemovePendingContribution(
-      const uint64_t id,
-      RemovePendingContributionCallback callback) override;
-
-  void RemoveAllPendingContributions(
-      RemovePendingContributionCallback callback) override;
-
-  void GetPendingContributionsTotal(
-      GetPendingContributionsTotalCallback callback) override;
 
   void OnContributeUnverifiedPublishers(
       const ledger::Result result,
@@ -253,6 +236,8 @@ class LedgerClientMojoProxy : public mojom::BatLedgerClient,
   void GetCreateScript(
       GetCreateScriptCallback callback) override;
 
+  void PendingContributionSaved(const ledger::Result result) override;
+
  private:
   // workaround to pass base::OnceCallback into std::bind
   // also serves as a wrapper for passing ledger::LedgerCallbackHandler*
@@ -316,10 +301,6 @@ class LedgerClientMojoProxy : public mojom::BatLedgerClient,
       int32_t response_code, const std::string& response,
       const std::map<std::string, std::string>& headers);
 
-  static void OnSavePendingContribution(
-      CallbackHolder<SavePendingContributionCallback>* holder,
-      ledger::Result result);
-
   static void OnSaveState(
       CallbackHolder<SaveStateCallback>* holder,
       ledger::Result result);
@@ -336,22 +317,6 @@ class LedgerClientMojoProxy : public mojom::BatLedgerClient,
   static void OnGetOneTimeTips(
       CallbackHolder<GetOneTimeTipsCallback>* holder,
       ledger::PublisherInfoList publisher_info_list);
-
-  static void OnGetPendingContributions(
-      CallbackHolder<GetPendingContributionsCallback>* holder,
-      ledger::PendingContributionInfoList info_list);
-
-  static void OnRemovePendingContribution(
-      CallbackHolder<RemovePendingContributionCallback>* holder,
-      ledger::Result result);
-
-  static void OnRemoveAllPendingContributions(
-      CallbackHolder<RemovePendingContributionCallback>* holder,
-      ledger::Result result);
-
-  static void OnGetPendingContributionsTotal(
-      CallbackHolder<GetPendingContributionsTotalCallback>* holder,
-      double amount);
 
   static void OnGetExternalWallets(
     CallbackHolder<GetExternalWalletsCallback>* holder,

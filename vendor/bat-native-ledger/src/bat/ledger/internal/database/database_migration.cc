@@ -8,6 +8,7 @@
 
 #include "bat/ledger/internal/database/database_activity_info.h"
 #include "bat/ledger/internal/database/database_migration.h"
+#include "bat/ledger/internal/database/database_pending_contribution.h"
 #include "bat/ledger/internal/database/database_publisher_info.h"
 #include "bat/ledger/internal/database/database_recurring_tip.h"
 #include "bat/ledger/internal/database/database_server_publisher_info.h"
@@ -21,6 +22,8 @@ namespace braveledger_database {
 DatabaseMigration::DatabaseMigration(bat_ledger::LedgerImpl* ledger) :
     ledger_(ledger) {
   activity_info_ = std::make_unique<DatabaseActivityInfo>(ledger_);
+  pending_contribution_ =
+      std::make_unique<DatabasePendingContribution>(ledger_);
   publisher_info_ = std::make_unique<DatabasePublisherInfo>(ledger_);
   recurring_tip_ = std::make_unique<DatabaseRecurringTip>(ledger_);
   server_publisher_info_ =
@@ -150,6 +153,10 @@ bool DatabaseMigration::MigrateV1toV2(
 
 bool DatabaseMigration::MigrateV2toV3(
     ledger::DBTransaction* transaction) {
+  if (!pending_contribution_->Migrate(transaction, 3)) {
+    return false;
+  }
+
   return true;
 }
 
@@ -195,6 +202,10 @@ bool DatabaseMigration::MigrateV6toV7(
 
 bool DatabaseMigration::MigrateV7toV8(
     ledger::DBTransaction* transaction) {
+  if (!pending_contribution_->Migrate(transaction, 8)) {
+    return false;
+  }
+
   return true;
 }
 
@@ -215,6 +226,10 @@ bool DatabaseMigration::MigrateV10toV11(
 
 bool DatabaseMigration::MigrateV11toV12(
     ledger::DBTransaction* transaction) {
+  if (!pending_contribution_->Migrate(transaction, 12)) {
+    return false;
+  }
+
   return true;
 }
 
@@ -231,6 +246,10 @@ bool DatabaseMigration::MigrateV13toV14(
 bool DatabaseMigration::MigrateV14toV15(
     ledger::DBTransaction* transaction) {
   if (!activity_info_->Migrate(transaction, 15)) {
+    return false;
+  }
+
+  if (!pending_contribution_->Migrate(transaction, 15)) {
     return false;
   }
 
