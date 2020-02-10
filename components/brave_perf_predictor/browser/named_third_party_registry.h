@@ -19,6 +19,8 @@ namespace brave_perf_predictor {
 // (https://github.com/patrickhulce/third-party-web).
 class NamedThirdPartyRegistry {
  public:
+  NamedThirdPartyRegistry(const NamedThirdPartyRegistry&) = delete;
+  NamedThirdPartyRegistry& operator=(const NamedThirdPartyRegistry&) = delete;
   static NamedThirdPartyRegistry* GetInstance();
 
   // Parse the provided mappings (in JSON format), potentially discarding
@@ -34,8 +36,6 @@ class NamedThirdPartyRegistry {
 
   NamedThirdPartyRegistry();
   ~NamedThirdPartyRegistry();
-  NamedThirdPartyRegistry(const NamedThirdPartyRegistry&) = delete;
-  NamedThirdPartyRegistry& operator=(const NamedThirdPartyRegistry&) = delete;
 
   bool IsInitialized() const { return initialized_; }
   void MarkInitialized(bool initialized) { initialized_ = initialized; }
