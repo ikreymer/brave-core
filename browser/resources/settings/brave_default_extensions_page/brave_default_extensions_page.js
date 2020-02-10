@@ -36,6 +36,7 @@ Polymer({
     this.onBraveWalletEnabledChange_ = this.onBraveWalletEnabledChange_.bind(this)
     this.onHangoutsEnabledChange_ = this.onHangoutsEnabledChange_.bind(this)
     this.onIPFSCompanionEnabledChange_ = this.onIPFSCompanionEnabledChange_.bind(this)
+    this.onWebrecorderEnabledChange_ = this.onWebrecorderEnabledChange_.bind(this)
     this.openExtensionsPage_ = this.openExtensionsPage_.bind(this)
     this.restartBrowser_ = this.restartBrowser_.bind(this)
     this.onTorEnabledChange_ = this.onTorEnabledChange_.bind(this)
@@ -75,6 +76,10 @@ Polymer({
 
   onIPFSCompanionEnabledChange_: function() {
     this.browserProxy_.setIPFSCompanionEnabled(this.$.ipfsCompanionEnabled.checked);
+  },
+
+  onWebrecorderEnabledChange_: function() {
+    this.browserProxy_.setWebrecorderEnabled(this.$.webrecorderEnabled.checked);
   },
 
   restartBrowser_: function() {

@@ -31,6 +31,7 @@ class BraveDefaultExtensionsHandler : public settings::SettingsPageUIHandler {
   void SetWebTorrentEnabled(const base::ListValue* args);
   void SetHangoutsEnabled(const base::ListValue* args);
   void SetIPFSCompanionEnabled(const base::ListValue* args);
+  void SetWebrecorderEnabled(const base::ListValue* args);
   void SetMediaRouterEnabled(const base::ListValue* args);
   void SetBraveWalletEnabled(const base::ListValue* args);
 #if BUILDFLAG(ENABLE_TOR)

@@ -103,6 +103,9 @@ const PrefsUtil::TypedPrefMap& BravePrefsUtil::GetWhitelistedKeys() {
   // IPFS Companion pref
   (*s_brave_whitelist)[kIPFSCompanionEnabled] =
       settings_api::PrefType::PREF_TYPE_BOOLEAN;
+  // Webrecorder pref
+  (*s_brave_whitelist)[kWebrecorderEnabled] =
+      settings_api::PrefType::PREF_TYPE_BOOLEAN;
   // Brave Wallet pref
   (*s_brave_whitelist)[kBraveWalletWeb3Provider] =
       settings_api::PrefType::PREF_TYPE_NUMBER;

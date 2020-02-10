@@ -59,6 +59,9 @@ void BraveExtensionManagement::OnExtensionLoaded(
     const Extension* extension) {
   if (extension->id() == ipfs_companion_extension_id)
     pref_service_->SetBoolean(kIPFSCompanionEnabled, true);
+
+  if (extension->id() == webrecorder_extension_id)
+    pref_service_->SetBoolean(kWebrecorderEnabled, true);
 }
 
 void BraveExtensionManagement::OnExtensionUnloaded(
@@ -67,6 +70,8 @@ void BraveExtensionManagement::OnExtensionUnloaded(
     UnloadedExtensionReason reason) {
   if (extension->id() == ipfs_companion_extension_id)
     pref_service_->SetBoolean(kIPFSCompanionEnabled, false);
+  if (extension->id() == webrecorder_extension_id)
+    pref_service_->SetBoolean(kWebrecorderEnabled, false);
 }
 
 }  // namespace extensions

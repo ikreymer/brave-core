@@ -19,6 +19,8 @@
 #include "chrome/browser/extensions/component_loader.h"
 #include "chrome/browser/extensions/extension_service.h"
 #include "chrome/browser/extensions/webstore_install_with_prompt.h"
+#include "chrome/browser/extensions/crx_installer.h"
+#include "chrome/browser/extensions/unpacked_installer.h"
 #include "chrome/browser/media/router/media_router_feature.h"
 #include "chrome/browser/profiles/profile.h"
 #include "chrome/browser/lifetime/application_lifetime.h"
@@ -31,11 +33,13 @@
 #include "extensions/browser/extension_registry.h"
 #include "extensions/browser/extension_system.h"
 #include "extensions/common/feature_switch.h"
+#include "extensions/common/manifest.h"
 
 #if BUILDFLAG(ENABLE_TOR)
 #include "brave/browser/tor/tor_profile_service.h"
 #include "brave/common/tor/pref_names.h"
 #endif
+
 
 BraveDefaultExtensionsHandler::BraveDefaultExtensionsHandler()
   : weak_ptr_factory_(this) {
@@ -49,6 +53,10 @@ void BraveDefaultExtensionsHandler::RegisterMessages() {
   web_ui()->RegisterMessageCallback(
       "setWebTorrentEnabled",
       base::BindRepeating(&BraveDefaultExtensionsHandler::SetWebTorrentEnabled,
+                          base::Unretained(this)));
+  web_ui()->RegisterMessageCallback(
+      "setWebrecorderEnabled",
+      base::BindRepeating(&BraveDefaultExtensionsHandler::SetWebrecorderEnabled,
                           base::Unretained(this)));
   web_ui()->RegisterMessageCallback(
       "setBraveWalletEnabled",
@@ -289,6 +297,58 @@ void BraveDefaultExtensionsHandler::SetIPFSCompanionEnabled(
         extensions::disable_reason::DisableReason::DISABLE_USER_ACTION);
   }
 }
+
+void BraveDefaultExtensionsHandler::SetWebrecorderEnabled(
+    const base::ListValue* args) {
+  CHECK_EQ(args->GetSize(), 1U);
+  CHECK(profile_);
+  bool enabled;
+  args->GetBoolean(0, &enabled);
+
+  extensions::ExtensionService* service =
+      extensions::ExtensionSystem::Get(profile_)->extension_service();
+
+  if (enabled) {
+    if (!IsExtensionInstalled(webrecorder_extension_id)) {
+      scoped_refptr<extensions::UnpackedInstaller> installer =
+          extensions::UnpackedInstaller::Create(service);
+
+      // temp hard-coded path for unpacked extension
+      base::FilePath ext_path(FILE_PATH_LITERAL("."));
+      ext_path = ext_path.Append(FILE_PATH_LITERAL("src"));
+      ext_path = ext_path.Append(FILE_PATH_LITERAL("brave"));
+      ext_path = ext_path.Append(FILE_PATH_LITERAL("extensions"));
+      ext_path = ext_path.Append(FILE_PATH_LITERAL("brave-webrecorder"));
+      ext_path = ext_path.Append(FILE_PATH_LITERAL("wr-ext"));
+
+      installer->Load(ext_path);
+    }
+
+/*
+    if (!IsExtensionInstalled(webrecorder_extension_id)) {
+      base::FilePath ext_path(FILE_PATH_LITERAL("./"));
+      ext_path = ext_path.Append(FILE_PATH_LITERAL("wr-ext.crx"));
+
+      scoped_refptr<extensions::CrxInstaller> installer =
+        extensions::CrxInstaller::CreateSilent(service);
+
+      installer->set_install_source(extensions::Manifest::EXTERNAL_POLICY_DOWNLOAD);
+      installer->set_allow_silent_install(true);
+      installer->set_is_gallery_install(true);
+      installer->set_off_store_install_allow_reason(extensions::CrxInstaller::OffStoreInstallAllowedBecausePref);
+      installer->InstallCrx(ext_path);
+    }
+*/
+    service->EnableExtension(webrecorder_extension_id);
+
+  } else {
+    service->DisableExtension(
+        webrecorder_extension_id,
+        extensions::disable_reason::DisableReason::DISABLE_BLOCKED_BY_POLICY);
+  }
+}
+
+
 
 void BraveDefaultExtensionsHandler::SetBraveWalletEnabled(
     const base::ListValue* args) {

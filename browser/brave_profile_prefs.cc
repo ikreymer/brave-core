@@ -200,6 +200,9 @@ void RegisterProfilePrefs(user_prefs::PrefRegistrySyncable* registry) {
   // IPFS companion extension
   registry->RegisterBooleanPref(kIPFSCompanionEnabled, false);
 
+  // Webrecorder extension
+  registry->RegisterBooleanPref(kWebrecorderEnabled, false);
+
   // New Tab Page
   registry->RegisterBooleanPref(kNewTabPageShowBackgroundImage, true);
   registry->RegisterBooleanPref(kNewTabPageShowClock, true);

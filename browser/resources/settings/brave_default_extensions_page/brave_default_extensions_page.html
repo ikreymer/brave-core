@@ -107,6 +107,12 @@
         sub-label="$i18n{webTorrentEnabledDesc}"
         on-settings-boolean-control-change="onWebTorrentEnabledChange_">
     </settings-toggle-button>
+    <settings-toggle-button id="webrecorderEnabled"
+        pref="{{prefs.brave.webrecorder_enabled}}"
+        label="Webrecorder"
+        sub-label="$i18n{webrecorderEnabledDesc}"
+        on-settings-boolean-control-change="onWebrecorderEnabledChange_">
+    </settings-toggle-button>
     <settings-toggle-button
         pref="{{prefs.brave.ask_widevine_install}}"
         label="Widevine"

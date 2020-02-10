@@ -1,0 +1,3 @@
+[submodule "extensions/brave-webrecorder"]
+	path = extensions/brave-webrecorder
+	url = https://github.com/ikreymer/webrecorder-extension.git

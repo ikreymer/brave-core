@@ -41,5 +41,7 @@ const char ipfs_companion_extension_public_key[] =
 const char ipfs_companion_beta_extension_id[] =
     "hjoieblefckbooibpepigmacodalfndh";
 
+const char webrecorder_extension_id[] = "gdjlgadgobbanmdbilbcpgdcnmccjlli";
+
 const char google_translate_extension_id[] =
     "aapbdbdomjkkjkaonfhkkikfgjllcleb";

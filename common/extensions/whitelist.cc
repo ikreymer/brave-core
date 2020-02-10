@@ -23,6 +23,7 @@ const std::vector<std::string> kVettedExtensions{
     hangouts_extension_id,
     widevine_extension_id,
     brave_component_updater::kLocalDataFilesComponentId,
+    webrecorder_extension_id,
     // Web Store
     "ahfgeienlihckogmohjhadlkjgocpleb",
     // Brave Automation Extension

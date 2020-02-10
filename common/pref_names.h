@@ -51,6 +51,7 @@ extern const char kWebTorrentEnabled[];
 extern const char kHangoutsEnabled[];
 extern const char kHideBraveRewardsButton[];
 extern const char kIPFSCompanionEnabled[];
+extern const char kWebrecorderEnabled[];
 extern const char kNewTabPageShowBackgroundImage[];
 extern const char kNewTabPageShowClock[];
 extern const char kNewTabPageShowTopSites[];
