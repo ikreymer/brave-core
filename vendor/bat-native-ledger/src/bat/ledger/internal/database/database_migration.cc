@@ -7,6 +7,7 @@
 #include <utility>
 
 #include "bat/ledger/internal/database/database_activity_info.h"
+#include "bat/ledger/internal/database/database_media_publisher_info.h"
 #include "bat/ledger/internal/database/database_migration.h"
 #include "bat/ledger/internal/database/database_pending_contribution.h"
 #include "bat/ledger/internal/database/database_publisher_info.h"
@@ -22,6 +23,7 @@ namespace braveledger_database {
 DatabaseMigration::DatabaseMigration(bat_ledger::LedgerImpl* ledger) :
     ledger_(ledger) {
   activity_info_ = std::make_unique<DatabaseActivityInfo>(ledger_);
+  media_publisher_info_ = std::make_unique<DatabaseMediaPublisherInfo>(ledger_);
   pending_contribution_ =
       std::make_unique<DatabasePendingContribution>(ledger_);
   publisher_info_ = std::make_unique<DatabasePublisherInfo>(ledger_);
@@ -129,6 +131,10 @@ bool DatabaseMigration::Migrate(
 bool DatabaseMigration::MigrateV0toV1(
     ledger::DBTransaction* transaction) {
   if (!activity_info_->Migrate(transaction, 1)) {
+    return false;
+  }
+
+  if (!media_publisher_info_->Migrate(transaction, 1)) {
     return false;
   }
 
@@ -246,6 +252,10 @@ bool DatabaseMigration::MigrateV13toV14(
 bool DatabaseMigration::MigrateV14toV15(
     ledger::DBTransaction* transaction) {
   if (!activity_info_->Migrate(transaction, 15)) {
+    return false;
+  }
+
+  if (!media_publisher_info_->Migrate(transaction, 15)) {
     return false;
   }
 
