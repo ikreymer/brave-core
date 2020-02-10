@@ -29,6 +29,7 @@
 #include "bat/ads/internal/event_type_load_info.h"
 #include "bat/ads/internal/notification_result_type.h"
 #include "bat/ads/internal/notifications.h"
+#include "bat/ads/internal/purchase_intent/purchase_intent_classifier.h"
 
 #include "bat/usermodel/user_model.h"
 
@@ -39,6 +40,7 @@ class Bundle;
 class AdsServe;
 class Notifications;
 class AdConversionTracking;
+class PurchaseIntentClassifier;
 class FrequencyCapping;
 class ExclusionRule;
 class PermissionRule;
@@ -166,6 +168,9 @@ class AdsImpl : public Ads {
   void OnPageLoaded(
       const std::string& url,
       const std::string& html) override;
+
+  void MaybeHasPurchaseIntent(
+      const std::string& url);
 
   void MaybeClassifyPage(
       const std::string& url,
@@ -336,6 +341,7 @@ class AdsImpl : public Ads {
   std::unique_ptr<Notifications> notifications_;
   std::unique_ptr<AdConversionTracking> ad_conversions_;
   std::unique_ptr<usermodel::UserModel> user_model_;
+  std::unique_ptr<PurchaseIntentClassifier> purchase_intent_classifier_;
 
  private:
   bool is_initialized_;

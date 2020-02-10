@@ -127,6 +127,7 @@ class SearchProviders {
   ~SearchProviders();
 
   static bool IsSearchEngine(const std::string& url);
+  static std::string ExtractSearchQueryKeywords(const std::string& url);
 };
 
 }  // namespace ads
