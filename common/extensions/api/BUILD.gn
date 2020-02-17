@@ -50,6 +50,7 @@ brave_extensions_api_schema_sources = [
   "brave_rewards.json",
   "brave_theme.json",
   "rewards_notifications.json",
+  "brave_webrecorder.json"
 ]
 
 if (enable_brave_sync) {

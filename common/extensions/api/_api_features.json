@@ -9,6 +9,16 @@
 // ipfs-companion-beta FF32507DC3DB5DFFD1D6733187C84D4B74713D63: echo -n hjoieblefckbooibpepigmacodalfndh | openssl sha1 | tr '[:lower:]' '[:upper:]'
 
 {
+  "braveWebrecorder": {
+    "channel": "stable",
+    "extension_types": ["extension"],
+    "contexts": [
+      "blessed_extension", "unblessed_extension", "content_script", "web_page"
+    ],
+    "matches": [
+      "http://*/*", "https://*/*", "chrome-extension://*/*", "file://*/*"
+    ]
+  },
   "braveShields": {
     "channel": "stable",
     "dependencies": [],

@@ -1,0 +1,53 @@
+[
+  {
+    "namespace": "braveWebrecorder",
+    "description": "Webrecorder infobar controls",
+    "compiler_options": {
+      "implemented_in": "brave/browser/extensions/api/brave_webrecorder_api.h"
+    },
+    "events": [
+      {
+        "name": "onCanceled",
+        "type": "function",
+        "description": "Fired when recording is canceled on a tab.",
+        "parameters": [
+          {
+            "type": "object",
+            "name": "details",
+            "properties": {
+              "tabId": {"type": "integer", "description": "The ID of the tab in which the action occurs."}
+            }
+          }
+        ]
+      }
+    ],
+    "functions": [
+      {
+        "name": "showInfoBar",
+        "type": "function",
+        "description": "Show Webrecorder Infobar",
+        "parameters": [
+          {
+            "name": "tabID",
+            "type": "integer"
+          }
+        ]
+      },
+      {
+        "name": "setSizeMsg",
+        "type": "function",
+        "description": "Sets the message for size recorded for infobar",
+        "parameters": [
+          {
+            "name": "tabID",
+            "type": "integer"
+          },
+          {
+            "name": "sizeMsg",
+            "type": "string"
+          }
+        ]
+      }
+    ]
+  }
+]

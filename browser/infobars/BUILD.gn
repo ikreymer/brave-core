@@ -6,6 +6,10 @@ source_set("infobars") {
   sources = [
     "brave_confirm_p3a_infobar_delegate.cc",
     "brave_confirm_p3a_infobar_delegate.h",
+    "webrecorder_infobar_delegate.h",
+    "webrecorder_infobar_delegate.cc",
+    "webrecorder_infobar.cc",
+    "webrecorder_infobar.h"
   ]
 
   if (brave_wallet_enabled) {

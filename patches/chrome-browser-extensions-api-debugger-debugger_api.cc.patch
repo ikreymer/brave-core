@@ -1,0 +1,25 @@
+diff --git a/chrome/browser/extensions/api/debugger/debugger_api.cc b/chrome/browser/extensions/api/debugger/debugger_api.cc
+index e0b5e36b092fd60f645f9aae9a778f7901dd1da0..f4daa610e0a0f80f1402612c3bbe19bb5e99c35a 100644
+--- a/chrome/browser/extensions/api/debugger/debugger_api.cc
++++ b/chrome/browser/extensions/api/debugger/debugger_api.cc
+@@ -60,6 +60,8 @@
+ #include "extensions/common/permissions/permissions_data.h"
+ #include "extensions/common/switches.h"
+ 
++#include "brave/common/extensions/extension_constants.h"
++
+ using content::DevToolsAgentHost;
+ using content::RenderProcessHost;
+ using content::RenderWidgetHost;
+@@ -225,6 +227,11 @@ bool ExtensionDevToolsClientHost::Attach() {
+   if (Manifest::IsPolicyLocation(extension_->location()))
+     return true;
+ 
++  // Exception for Webrecorder extension, which shows its own infobar when active.
++  if (extension_->id() == webrecorder_extension_id) {
++    return true;
++  }
++
+   infobar_ = ExtensionDevToolsInfoBar::Create(
+       extension_id(), extension_->name(), this,
+       base::Bind(&ExtensionDevToolsClientHost::InfoBarDismissed,

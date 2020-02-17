@@ -492,6 +492,9 @@ By installing this extension, you are agreeing to the Google Widevine Terms of U
       <message name="IDS_SETTINGS_WEBRECORDER_ENABLED_DESC" desc="The description for Webrecorder switch in settings">
         Supports archiving web pages and replaying web archives directly in the browser.
       </message>
+      <message name="IDS_WEBRECORDER_RECORDING_STATUS" desc="Webrecorder extension recording status and size">
+        Current Recording Size: <ph name="SIZE_MSG">$1<ex>10MB</ex></ph>
+       </message>
       <message name="IDS_SETTINGS_MANAGE_EXTENSIONS_LABEL" desc="The label of manage extensions link in settings">
         Manage extensions
       </message>
