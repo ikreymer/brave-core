@@ -41,7 +41,10 @@ const char ipfs_companion_extension_public_key[] =
 const char ipfs_companion_beta_extension_id[] =
     "hjoieblefckbooibpepigmacodalfndh";
 
-const char webrecorder_extension_id[] = "gdjlgadgobbanmdbilbcpgdcnmccjlli";
+const char webrecorder_extension_id[] = "ibhlmjcijegjkcnpdmkoibmobgagibkg";
+/*const char webrecorder_extension_public_key[] = 
+    "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAv2nd1eBX9Z8aOzrPMCU3mR+Ze7ruADP5uv0uOgF2Ec4s7EKbGQuHkzP+RFB7l6DTm5ajQE0A2J8YR2TIErYaMRnsHcvimpN41NSvWdxb4XqrY25zhyo6h6pImxSvxaRkM4JPZsekZ4/7rY3G2R0uHRkE1NWoT+Yr75gT2XnKddF7o55bhQL7XPsiGVSYmfx7VB/f6XEHbCYOzN+VNKqhA8jgE1eU7oaWTE4pT0E6b5bn6dr8zppPlD+9A7zuYzUxsut+iDnlnORHdDx7PwwY+v0it/VF5BfKtdgKkEKEdjZvOsUBEAaGFQPpedI8Tr0AcM//SXa9ErUICHPvb5xgoQIDAQAB";
+*/
 
 const char google_translate_extension_id[] =
     "aapbdbdomjkkjkaonfhkkikfgjllcleb";

@@ -31,6 +31,17 @@ class BraveWebrecorderSetSizeMsgFunction : public ExtensionFunction {
   ResponseAction Run() override;
 };
 
+class BraveWebrecorderHideInfoBarFunction : public ExtensionFunction {
+ public:
+  DECLARE_EXTENSION_FUNCTION("braveWebrecorder.hideInfoBar", UNKNOWN)
+
+ protected:
+  ~BraveWebrecorderHideInfoBarFunction() override {}
+
+  ResponseAction Run() override;
+};
+
+
 }  // namespace api
 }  // namespace extensions
 

@@ -99,6 +99,47 @@ ExtensionFunction::ResponseAction BraveWebrecorderSetSizeMsgFunction::Run() {
   return RespondNow(NoArguments());
 }
 
+ExtensionFunction::ResponseAction BraveWebrecorderHideInfoBarFunction::Run() {
+  std::unique_ptr<brave_webrecorder::HideInfoBar::Params> params(
+      brave_webrecorder::HideInfoBar::Params::Create(*args_));
+  EXTENSION_FUNCTION_VALIDATE(params.get());
+
+  Profile* profile = Profile::FromBrowserContext(browser_context());
+
+  // Get web contents for this tab
+  content::WebContents* contents = nullptr;
+  if (!ExtensionTabUtil::GetTabById(
+        params->tab_id,
+        profile,
+        false,
+        nullptr,
+        nullptr,
+        &contents,
+        nullptr)) {
+    return RespondNow(Error(tabs_constants::kTabNotFoundError,
+                            base::NumberToString(params->tab_id)));
+  }
+
+
+  if (contents) {
+    InfoBarService* infobar_service =
+        InfoBarService::FromWebContents(contents);
+
+    if (infobar_service) {
+      for (size_t i = 0; i < infobar_service->infobar_count(); i++) {
+        infobars::InfoBarDelegate* delegate =
+          infobar_service->infobar_at(i)->delegate();
+        if (delegate->GetIdentifier() == WebrecorderInfoBarDelegate::WEBRECORDER_INFOBAR_DELEGATE) {
+          infobar_service->infobar_at(i)->RemoveSelf();
+        }
+      }
+    }
+  }
+
+  return RespondNow(NoArguments());
+}
+
+
 
 
 }  // namespace api

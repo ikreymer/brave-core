@@ -34,6 +34,17 @@
         ]
       },
       {
+        "name": "hideInfoBar",
+        "type": "function",
+        "description": "Hide Webrecorder Infobar",
+        "parameters": [
+          {
+            "name": "tabID",
+            "type": "integer"
+          }
+        ]
+      },
+      {
         "name": "setSizeMsg",
         "type": "function",
         "description": "Sets the message for size recorded for infobar",
